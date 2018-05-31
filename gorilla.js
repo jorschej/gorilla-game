@@ -882,14 +882,12 @@ window.addEventListener('load', ()=>{
 
             if(fruitY < 88){ // check if gorilla has made it back with the fruit
                 if(currentLevel === 10){
-                    console.log('victory');
                     fruitAcquired = false;
                     fruitX = fruitStandX;
                     fruitY = fruitStandY;
                     bananaScore[currentLevel-1] = true;
                     victoryScreen = true;
                 } else {
-                    console.log('win!');
                     fruitAcquired = false;
                     fruitX = fruitStandX;
                     fruitY = fruitStandY;
@@ -979,7 +977,7 @@ window.addEventListener('load', ()=>{
         let x = e.key;
         let step = gorillaHeight;
     
-        if(!startScreen && !scoreScreen){
+        if(!startScreen && !scoreScreen && !victoryScreen){
             if(x === 'ArrowUp' && gorillaY > 0){
                 gorillaY -= step;
             } else if(x === 'ArrowDown' && gorillaY < canvas.height-gorillaHeight){
@@ -1008,7 +1006,7 @@ window.addEventListener('load', ()=>{
         } else if(x === 'Enter' && victoryScreen){
             victoryScreen = false;
             currentLevel = 0;
-
+            // reset game
             gameLevel = {
                 1: new Street(),
                 2: new Street(),
@@ -1021,12 +1019,12 @@ window.addEventListener('load', ()=>{
                 9: new Street(),
                 10: new Street()
             }
-
+            // reset banana score arr and fill with false
             bananaScore = [];
             for(let i = 0; i < 10; i++){
                 bananaScore.push(false);
             }
-
+            // bring player back to start screen
             startScreen = true;
         }
     });
