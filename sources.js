@@ -85,3 +85,7 @@ bananasBlackPic.onload = function(){
     bananasBlackPicLoaded = true;
 }
 bananasBlackPic.src = 'images/bananasBlack.png';
+
+const collisionSnd = new Audio('sounds/collision.wav'),
+      fruitSnd = new Audio('sounds/fruit.wav'),
+      successSnd = new Audio('sounds/success.wav');

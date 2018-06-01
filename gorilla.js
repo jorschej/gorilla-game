@@ -370,6 +370,7 @@ function collision(){
                 || gorillaX+gorillaWidth > gameLevel[currentLevel][lane][i].corner[0] && gorillaX+gorillaWidth < gameLevel[currentLevel][lane][i].corner[0]+gorillaWidth*2
                 && gorillaY === gameLevel[currentLevel][lane][i].corner[1]
             ){
+                collisionSnd.play();
                 gorillaX = 308;
                 gorillaY = 0;
                 fruitAcquired = false;
@@ -381,8 +382,9 @@ function collision(){
 }
 
 function fruitTaken(){
-    if(gorillaX >= canvas.width-132 && gorillaY >= fruitStandY){ // check if gorilla is in range of fruit stand to take fruit
+    if(gorillaX >= canvas.width-132 && gorillaY >= fruitStandY && !fruitAcquired){ // check if gorilla is in range of fruit stand to take fruit
         fruitAcquired = true;
+        fruitSnd.play();
     }
 
     if(fruitAcquired){ // keep fruit with gorilla if taken
@@ -391,12 +393,14 @@ function fruitTaken(){
 
         if(fruitY < 88){ // check if gorilla has made it back with the fruit
             if(currentLevel === 10){
+                successSnd.play();
                 fruitAcquired = false;
                 fruitX = fruitStandX;
                 fruitY = fruitStandY;
                 bananaScore[currentLevel-1] = true;
                 victoryScreen = true;
             } else {
+                successSnd.play();
                 fruitAcquired = false;
                 fruitX = fruitStandX;
                 fruitY = fruitStandY;
