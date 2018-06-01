@@ -1,3 +1,8 @@
+@viewport {
+    width: device-width ;
+    zoom: 1.0 ;
+}
+
 body {
     background: linear-gradient(#44c776, #97a1ca);
     height: 100%;
@@ -34,22 +39,22 @@ canvas {
 
 #up {
     font-size: 2em;
-    padding: 3% 3%;
+    padding: 2em 3em;
 }
 
 #down {
     font-size: 2em;
-    padding: 3% 3%;
+    padding: 3em 3em;
 }
 
 #left {
     margin: 65px;
     font-size: 2em;
-    padding: 2% 4%;
+    padding: 2em 4em;
 }
 
 #right {
     margin: 65px;
     font-size: 2em;
-    padding: 2% 4%;
+    padding: 2em 4em;
 }
