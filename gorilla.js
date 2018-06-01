@@ -1,12 +1,18 @@
 var canvas;
 var c;
 
+let enterButton,
+    upButton,
+    downButton,
+    leftButton,
+    rightButton;
+
 let gorillaX = 308;
 let gorillaY = 0;
 const gorillaWidth = 44;
 const gorillaHeight = 44;
 const fruitStandX = 500;
-const fruitStandY = 660-88; // canvas.height - 88
+const fruitStandY = 660 - 88; // canvas.height - height of fruit stand
 let fruitX = fruitStandX;
 let fruitY = fruitStandY;
 
@@ -37,7 +43,7 @@ function Street(){ // each array is an empty lane
     }
 }
 
-let gameLevel = {
+let gameLevel = { // each level/key is a blank street
     1: new Street(),
     2: new Street(),
     3: new Street(),
@@ -61,7 +67,7 @@ function colorRect(topLeftX,topLeftY,boxWidth,boxHeight,fillColor){
     c.fillRect(topLeftX,topLeftY,boxWidth,boxHeight);
 }
 
-function Vehicle(type){
+function Vehicle(type){ // parameter is type of vehicle: car,truck,taxi,cop
     this.corner = [0,88];
     this.width = gorillaWidth*2;
     this.height = gorillaHeight;
@@ -254,7 +260,6 @@ function drawAll(){
         drawScoreScreen();
     }
 
-    
     // once enter has been pressed load images and start game
     if(!startScreen && !scoreScreen && !victoryScreen){
         
@@ -307,6 +312,7 @@ function moveAll(){
         mediumCarSpeed = 2,
         fastCarSpeed = 5;
     
+    // functions to move vehicles based on type, pass in lane and i from loops
     function moveCars(lane,i){
         gameLevel[currentLevel][lane][i].corner[0] += mediumCarSpeed;
             
@@ -411,43 +417,58 @@ function fruitTaken(){
     }
 }
 
+// main function to run all others
 function updateAll(){
-    requestAnimationFrame(updateAll);
+    requestAnimationFrame(updateAll); // loops updateAll
     moveAll();
     drawAll();
     collision();
     fruitTaken();
 }
 
-window.addEventListener('load', ()=>{
+// wait for DOM to load
+window.addEventListener('load', ()=>{ 
 
     canvas = document.querySelector('canvas');
     canvas.width = 616;
     canvas.height = 660;
     c = canvas.getContext('2d');
-    
-    updateAll();
+
+    //buttons
+    enterButton = document.getElementById('enter');
+    upButton = document.getElementById('up');
+    downButton = document.getElementById('down');
+    leftButton = document.getElementById('left');
+    rightButton = document.getElementById('right');
+
+    updateAll(); // main game function
        
     //controls
+    
     var down = false; // remove sprint, if down is true, gorilla will not step
 
+    // key press listener controls 
     document.addEventListener('keydown', e => {
-        if(down) return;
+        if(down) return; // if key is still down exit listener
 
         let x = e.key;
         let step = gorillaHeight;
     
         if(!startScreen && !scoreScreen && !victoryScreen){
             if(x === 'ArrowUp' && gorillaY > 0){
+                e.preventDefault();
                 gorillaY -= step;
                 down = true;
             } else if(x === 'ArrowDown' && gorillaY < canvas.height-gorillaHeight){
+                e.preventDefault();
                 gorillaY += step;
                 down = true;
             } else if(x === 'ArrowLeft' && gorillaX > 0){
+                e.preventDefault();
                 gorillaX -= step;
                 down = true;
             } else if(x === 'ArrowRight' && gorillaX < canvas.width-gorillaWidth){
+                e.preventDefault();
                 gorillaX += step;
                 down = true;
             }
@@ -459,7 +480,7 @@ window.addEventListener('load', ()=>{
     }, false);
     
     // exit start/score screen and begin game/next lvl if enter is pressed
-    document.addEventListener('keydown', e =>{
+    document.addEventListener('keydown', e => {
         let x = e.key;
 
         if(x === 'Enter' && startScreen){
@@ -472,8 +493,76 @@ window.addEventListener('load', ()=>{
             loadLevel(currentLevel);
         } else if(x === 'Enter' && victoryScreen){
             victoryScreen = false;
-            currentLevel = 0;
             // reset game
+            currentLevel = 0;
+            gameLevel = {
+                1: new Street(),
+                2: new Street(),
+                3: new Street(),
+                4: new Street(),
+                5: new Street(),
+                6: new Street(),
+                7: new Street(),
+                8: new Street(),
+                9: new Street(),
+                10: new Street()
+            }
+            // reset banana score arr and fill with false
+            bananaScore = [];
+            for(let i = 0; i < 10; i++){
+                bananaScore.push(false);
+            }
+            // bring player back to start screen
+            startScreen = true;
+        }
+    });
+
+    // button listener controls
+
+    upButton.addEventListener('click', () => {
+        let step = gorillaHeight;
+    
+        if(!startScreen && !scoreScreen && !victoryScreen && gorillaY > 0){  
+            gorillaY -= step;
+        }
+    });
+    downButton.addEventListener('click', () => {
+        let step = gorillaHeight;
+    
+        if(!startScreen && !scoreScreen && !victoryScreen && gorillaY < canvas.height-gorillaHeight){  
+            gorillaY += step;
+        }
+    });
+    leftButton.addEventListener('click', () => {
+        let step = gorillaHeight;
+    
+        if(!startScreen && !scoreScreen && !victoryScreen && gorillaX > 0){  
+            gorillaX -= step;
+        }
+    });
+    rightButton.addEventListener('click', () => {
+        let step = gorillaHeight;
+    
+        if(!startScreen && !scoreScreen && !victoryScreen && gorillaX < canvas.width-gorillaWidth){  
+            gorillaX += step;
+        }
+    });
+
+    // exit start/score screen and begin game/next lvl if enter is pressed
+    enter.addEventListener('click', () => {
+
+        if(startScreen){
+            startScreen = false;
+            currentLevel++;
+            loadLevel(currentLevel);
+        } else if(scoreScreen){
+            scoreScreen = false;
+            currentLevel++;
+            loadLevel(currentLevel);
+        } else if(victoryScreen){
+            victoryScreen = false;
+            // reset game
+            currentLevel = 0;
             gameLevel = {
                 1: new Street(),
                 2: new Street(),

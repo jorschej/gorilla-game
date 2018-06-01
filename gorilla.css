@@ -14,3 +14,38 @@ canvas {
     margin-right: auto;
     display: block;
 }
+
+.buttons {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.arrows {
+    margin: 30px auto;
+}
+
+.left-right {
+    margin: 20px 20px;
+}
+
+#enter {
+    font-size: 2em;
+}
+
+#up {
+    font-size: 2em;
+}
+
+#down {
+    font-size: 2em;
+}
+
+#left {
+    margin: 25px;
+    font-size: 2em;
+}
+
+#right {
+    margin: 25px;
+    font-size: 2em;
+}
