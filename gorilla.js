@@ -519,35 +519,6 @@ window.addEventListener('load', ()=>{
 
     // button listener controls
 
-    upButton.addEventListener('click', () => {
-        let step = gorillaHeight;
-    
-        if(!startScreen && !scoreScreen && !victoryScreen && gorillaY > 0){  
-            gorillaY -= step;
-        }
-    });
-    downButton.addEventListener('click', () => {
-        let step = gorillaHeight;
-    
-        if(!startScreen && !scoreScreen && !victoryScreen && gorillaY < canvas.height-gorillaHeight){  
-            gorillaY += step;
-        }
-    });
-    leftButton.addEventListener('click', () => {
-        let step = gorillaHeight;
-    
-        if(!startScreen && !scoreScreen && !victoryScreen && gorillaX > 0){  
-            gorillaX -= step;
-        }
-    });
-    rightButton.addEventListener('click', () => {
-        let step = gorillaHeight;
-    
-        if(!startScreen && !scoreScreen && !victoryScreen && gorillaX < canvas.width-gorillaWidth){  
-            gorillaX += step;
-        }
-    });
-
     // exit start/score screen and begin game/next lvl if enter is pressed
     enter.addEventListener('click', () => {
 

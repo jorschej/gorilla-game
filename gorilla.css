@@ -3,6 +3,10 @@
     zoom: 1.0 ;
 }
 
+* {
+    overflow: hidden;
+}
+
 body {
     background: linear-gradient(#44c776, #97a1ca);
     height: 100%;
@@ -21,40 +25,10 @@ canvas {
 }
 
 .buttons {
+    margin: 3em;
     text-align: center;
-    margin: 20px auto;
-}
-
-.arrows {
-    margin: 30px auto;
-}
-
-.left-right {
-    margin: 20px 20px;
 }
 
 #enter {
     font-size: 2em;
-}
-
-#up {
-    font-size: 2em;
-    padding: 2em 3em;
-}
-
-#down {
-    font-size: 2em;
-    padding: 3em 3em;
-}
-
-#left {
-    margin: 65px;
-    font-size: 2em;
-    padding: 2em 4em;
-}
-
-#right {
-    margin: 65px;
-    font-size: 2em;
-    padding: 2em 4em;
 }
