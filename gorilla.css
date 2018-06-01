@@ -34,18 +34,22 @@ canvas {
 
 #up {
     font-size: 2em;
+    padding: 3% 3%;
 }
 
 #down {
     font-size: 2em;
+    padding: 3% 3%;
 }
 
 #left {
-    margin: 25px;
+    margin: 65px;
     font-size: 2em;
+    padding: 2% 4%;
 }
 
 #right {
-    margin: 25px;
+    margin: 65px;
     font-size: 2em;
+    padding: 2% 4%;
 }
