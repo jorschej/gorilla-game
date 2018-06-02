@@ -517,9 +517,33 @@ window.addEventListener('load', ()=>{
         }
     });
 
-    // button listener controls
+   
+    canvas.addEventListener('touchstart', e => {
+        let step = gorillaHeight;
+        console.log(e.targetTouches[0].target.clientWidth);
+        console.log(e.targetTouches[0].clientX);
+        console.log(e.targetTouches[0].clientY);
+        if(!startScreen && !scoreScreen && !victoryScreen){
+            if(e.targetTouches[0].clientY < e.targetTouches[0].target.clientHeight/2  && gorillaY > 0){
+                gorillaY -= step;
+            } else if(e.targetTouches[0].clientY > e.targetTouches[0].target.clientHeight/2 && gorillaY < canvas.height-gorillaHeight){
+                
+                gorillaY += step;
+                
+            } // else if(e.targetTouches[0].clientX && gorillaX > 0){
+                
+            //     gorillaX -= step;
+                
+            // } else if(e.targetTouches[0].clientX && gorillaX < canvas.width-gorillaWidth){
+                
+            //     gorillaX += step;
+                
+            // }
+        }
+    });
 
-    // exit start/score screen and begin game/next lvl if enter is pressed
+
+    // enter button control to exit start/score screen and begin game/next lvl if enter is pressed
     enter.addEventListener('click', () => {
 
         if(startScreen){
