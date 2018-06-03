@@ -520,25 +520,23 @@ window.addEventListener('load', ()=>{
    
     canvas.addEventListener('touchstart', e => {
         let step = gorillaHeight;
-        console.log(e.targetTouches[0].target.clientWidth);
-        console.log(e.targetTouches[0].clientX);
-        console.log(e.targetTouches[0].clientY);
+        let screenWidth = e.targetTouches[0].target.clientWidth;
+        let screenHeight = e.targetTouches[0].target.clientHeight;
+        let cX = e.targetTouches[0].target.clientWidth/2;
+        let cY = e.targetTouches[0].target.clientHeight/2;
+        let touchX = e.targetTouches[0].clientX;
+        let touchY = e.targetTouches[0].clientY;
+
         if(!startScreen && !scoreScreen && !victoryScreen){
-            if(e.targetTouches[0].clientY < e.targetTouches[0].target.clientHeight/2  && gorillaY > 0){
+            if(inTriangleA(screenWidth,cX,cY,touchX,touchY)  && gorillaY > 0){
                 gorillaY -= step;
-            } else if(e.targetTouches[0].clientY > e.targetTouches[0].target.clientHeight/2 && gorillaY < canvas.height-gorillaHeight){
-                
+            } else if(inTriangleC(screenHeight,screenWidth,screenHeight,cX,cY,touchX,touchY) && gorillaY < canvas.height-gorillaHeight){
                 gorillaY += step;
-                
-            } // else if(e.targetTouches[0].clientX && gorillaX > 0){
-                
-            //     gorillaX -= step;
-                
-            // } else if(e.targetTouches[0].clientX && gorillaX < canvas.width-gorillaWidth){
-                
-            //     gorillaX += step;
-                
-            // }
+            } else if(inTriangleD(screenHeight,cX,cY,touchX,touchY) && gorillaX > 0){
+                gorillaX -= step;
+            } else if(inTriangleB(screenWidth,screenWidth,screenHeight,cX,cY,touchX,touchY) && gorillaX < canvas.width-gorillaWidth){    
+                gorillaX += step;
+            }
         }
     });
 
