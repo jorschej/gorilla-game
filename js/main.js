@@ -1,11 +1,7 @@
 var canvas;
 var c;
 
-let enterButton,
-    upButton,
-    downButton,
-    leftButton,
-    rightButton;
+let enterButton;
 
 let gorillaX = 308;
 let gorillaY = 0;
@@ -154,9 +150,13 @@ function drawStartScreen(){
     c.fillText('Press enter to start!',200,400);
 
     c.fillStyle = 'black';
-    c.fillText('Use the arrow keys to move the gorilla.',10,475);
-    c.fillText('Once you have made it to the banana stand, you have',10,500);
-    c.fillText('to return to the original side of the road.',10,525);
+    c.fillText('Use the arrow keys to move the gorilla',10,475);
+    c.fillText('if you are using a keyboard.',10,500);
+    c.fillText('Tap the screen if you are on mobile or using ',10,525);
+    c.fillText('a touch device.',10,550);
+    c.fillText('Once you have made it to the banana stand, you have',10,575);
+    c.fillText('to return to the original side of the road to ',10,600);
+    c.fillText('complete the level.',10,625);
 
     if(gorillaPicLoaded){
         c.drawImage(gorillaPic,
@@ -169,6 +169,7 @@ function drawStartScreen(){
     } 
 }
 
+// screen after beating a lvl
 function drawScoreScreen(){
     if(startScreenBGPicLoaded){
         c.drawImage(startScreenBGPic,
@@ -177,7 +178,7 @@ function drawScoreScreen(){
 
     c.font = '50px Arial';
     c.fillStyle = 'black';
-    c.fillText('Success!',200,175);
+    c.fillText('Success!',200,200);
     
     c.font = '25px Arial';
     c.fillStyle = 'blue';
@@ -193,17 +194,19 @@ function drawScoreScreen(){
             canvas.width/2, canvas.height/2-44);
     }
 
+    // bananas to indicate how many lvls beaten/left
     for(let i = 0; i < bananaScore.length; i++){
-        if(bananasPicLoaded && bananaScore[i]){
+        if(bananasPicLoaded && bananaScore[i]){ // if true in that index
             c.drawImage(bananasPic,
                 i*44 + 110, 430);
-        } else if(bananasPicLoaded){
+        } else if(bananasBlackPicLoaded){
             c.drawImage(bananasBlackPic,
                 i*44 + 110, 430);
         }
     }
 }
 
+// final screen after beating lvl 10
 function drawVictoryScreen(){
     if(startScreenBGPicLoaded){
         c.drawImage(startScreenBGPic,
@@ -212,7 +215,7 @@ function drawVictoryScreen(){
 
     c.font = '50px Arial';
     c.fillStyle = 'black';
-    c.fillText('Congratulations!',130,175);
+    c.fillText('Congratulations!',130,200);
     
     c.font = '40px Arial';
     c.fillStyle = 'blue';
@@ -436,10 +439,6 @@ window.addEventListener('load', ()=>{
 
     //buttons
     enterButton = document.getElementById('enter');
-    upButton = document.getElementById('up');
-    downButton = document.getElementById('down');
-    leftButton = document.getElementById('left');
-    rightButton = document.getElementById('right');
 
     updateAll(); // main game function
        
@@ -519,13 +518,13 @@ window.addEventListener('load', ()=>{
 
    
     canvas.addEventListener('touchstart', e => {
-        let step = gorillaHeight;
-        let screenWidth = e.targetTouches[0].target.clientWidth;
-        let screenHeight = e.targetTouches[0].target.clientHeight;
-        let cX = e.targetTouches[0].target.clientWidth/2;
-        let cY = e.targetTouches[0].target.clientHeight/2;
-        let touchX = e.targetTouches[0].clientX;
-        let touchY = e.targetTouches[0].clientY;
+        let step = gorillaHeight,
+            screenWidth = e.targetTouches[0].target.clientWidth,
+            screenHeight = e.targetTouches[0].target.clientHeight,
+            cX = e.targetTouches[0].target.clientWidth/2,
+            cY = e.targetTouches[0].target.clientHeight/2,
+            touchX = e.targetTouches[0].clientX,
+            touchY = e.targetTouches[0].clientY;
 
         if(!startScreen && !scoreScreen && !victoryScreen){
             if(inTriangleA(screenWidth,cX,cY,touchX,touchY)  && gorillaY > 0){
@@ -542,7 +541,7 @@ window.addEventListener('load', ()=>{
 
 
     // enter button control to exit start/score screen and begin game/next lvl if enter is pressed
-    enter.addEventListener('click', () => {
+    enterButton.addEventListener('click', () => {
 
         if(startScreen){
             startScreen = false;
